@@ -3,7 +3,7 @@
 
 int main()
 {
-    int mat[10][10];
+    pnode *head = NULL;
     char input = 'a';
     while (input != 'D')
     {
@@ -11,15 +11,15 @@ int main()
         switch (input)
         {
         case 'A':
-            createMat(mat);
+            build_graph_cmd(head);
             break;
 
         case 'B':
-            isPath(mat);
+
             break;
 
         case 'C':
-            printf("%d\n", shortestP(mat));
+
             break;
 
         default:
