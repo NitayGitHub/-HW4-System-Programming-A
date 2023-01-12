@@ -1,6 +1,7 @@
 #include "graph.h"
 #include <stdio.h>
 #include <ctype.h>
+#include <stdlib.h>
 
 node *find_node(node *, int);
 edge *find_empty_edge(node *);
@@ -44,13 +45,13 @@ void build_graph_cmd(node *head)
     }
 
     // add edges to the directed graph one by one
-    while (!isalph(input) || input == 'n')
+    while (!isalpha(input) || input == 'n')
     {
         scanf("%c", &input);
         if (input == 'n')
         {
             scanf("%c", &input);
-            current = find_node(head, atoi(input));
+            current = find_node(head, input - '0');
         }
         else
         {
@@ -61,10 +62,10 @@ void build_graph_cmd(node *head)
                 printf("Error: edge malloc failed");
                 return;
             }
-            current_edge->endpoint = atoi(input);
+            current_edge->endpoint = find_node(head, input - '0');
             current_edge->next = NULL;
             scanf("%c", &input);
-            current_edge->weight = atoi(input);
+            current_edge->weight = input - '0'; //only for 0-9
         }
     }
 }

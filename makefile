@@ -11,5 +11,9 @@ libgraph.a:directed_graph.o
 	ar -rcs libgraph.a directed_graph.o
 directed_graph.o: directed_graph.c graph.h
 	$(CC) $(CFLAGS) -c directed_graph.c
+
+rung: graph
+	./graph
+
 clean:
 	rm -f *a *.o graph
