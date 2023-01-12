@@ -19,9 +19,9 @@ typedef struct GRAPH_NODE_ {
 //main methods
 void build_graph_cmd(node *head);
 void insert_node_cmd(node *head);
-void delete_node_cmd(node *head);
+void delete_node_cmd(node **head);
 void printGraph_cmd(node *head); //for self debug
-void deleteGraph_cmd(node* head);
+void deleteGraph_cmd(node *head);
 void shortsPath_cmd(node head);
 void TSP_cmd(node *head);
 

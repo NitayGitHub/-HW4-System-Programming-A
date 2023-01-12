@@ -5,6 +5,7 @@
 int main()
 {
     node *head = (node *)malloc(sizeof(pnode));
+    node **tmp_head = &head;
     if (head == NULL)
     {
         printf("Error: head malloc failed");
@@ -25,7 +26,7 @@ int main()
             break;
 
         case 'D':
-            delete_node_cmd(head);
+            delete_node_cmd(tmp_head);
             break;
 
         case 'P':

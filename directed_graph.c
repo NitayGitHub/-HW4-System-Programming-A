@@ -100,12 +100,12 @@ void insert_node_cmd(node *head)
     }
 }
 
-void delete_node_cmd(node * head){
+void delete_node_cmd(node **head){
     int node_num;
     printf("Enter the node number: ");
     scanf("%d", &node_num);
-    node *current = head;
-    node *previous = NULL;
+    node *current = *head;
+    node *previous = NULL, * next_head = NULL;
     // Search for the node
     while (current != NULL)
     {
@@ -124,7 +124,10 @@ void delete_node_cmd(node * head){
             // Delete the node
             if (previous == NULL)
             {
-                head = current->next;
+                next_head = (*head)->next;
+                free(*head);
+                *head = next_head;
+                return;
             }
             else
             {
