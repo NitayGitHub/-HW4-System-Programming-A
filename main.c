@@ -21,12 +21,15 @@ int main()
             break;
 
         case 'B':
-            printGraph_cmd(head);
+            insert_node_cmd(head);
             break;
 
         case 'C':
-            insert_node_cmd(head);
+
             break;
+
+        case 'P':
+            printGraph_cmd(head);
 
         default:
             break;

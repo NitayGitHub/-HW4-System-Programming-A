@@ -5,14 +5,8 @@
 #include <string.h>
 #include <errno.h>
 
-node *find_node(node *, int);
-edge *find_empty_edge(node *);
-void insert_node_cmd(node *head);
-int parse_to_int(char);
-
 void build_graph_cmd(node *head)
 {
-    edge *current_edge = NULL;
     int num_of_nodes = 0;
     char input = 'n';
     scanf(" %d", &num_of_nodes);
@@ -39,10 +33,10 @@ void build_graph_cmd(node *head)
         current = current->next;
     }
 
+    scanf(" %c", &input);
     // add edges to the directed graph one by one
-    for (int i = 0; i < num_of_nodes * num_of_nodes; i++)
+    while (1)
     {
-        scanf(" %c", &input);
         if (input == 'n')
         {
             scanf(" %c", &input);
@@ -50,131 +44,13 @@ void build_graph_cmd(node *head)
         }
         else if (isdigit(input))
         {
-            current_edge = current->edges;
-            if (current_edge == NULL)
-            {
-                current->edges = (edge *)malloc(sizeof(edge));
-                if (current == NULL)
-                {
-                    printf("Error: edge malloc failed");
-                    return;
-                }
-                current_edge = current->edges;
-                current_edge->endpoint = find_node(head, parse_to_int(input));
-                current_edge->next = NULL;
-                scanf(" %c", &input);
-                current_edge->weight = parse_to_int(input); // only for 0-9
-            }
-            else
-            {
-                while (current_edge->next != NULL)
-                {
-                    current_edge = current_edge->next;
-                }
-                current_edge->next = (edge *)malloc(sizeof(edge));
-                if (current_edge->next == NULL)
-                {
-                    printf("Error: edge malloc failed");
-                    return;
-                }
-                current_edge->next->endpoint = find_node(head, parse_to_int(input));
-                current_edge->next->next = NULL;
-                scanf(" %c", &input);
-                current_edge->next->weight = parse_to_int(input); // only for 0-9
-            }
+            input = add_edges(current, head);
         }
         else
         {
             break;
         }
     }
-
-    printf("%d", head->edges->next->weight);
-
-    puts("End\n");
-}
-
-/*
-void insert_node_cmd(node *head)
-{
-    int node_num;
-    char input = '1';
-    scanf(" %d", &node_num);
-    if (find_node(head, node_num) == NULL)
-    {
-        node *current = head;
-        while (current != NULL)
-        {
-            current = current->next;
-        }
-        current = (node *)malloc(sizeof(pnode));
-        if (current == NULL)
-        {
-            printf("Error: node malloc failed");
-            return;
-        }
-        current->next = NULL;
-        current->node_num = node_num;
-        current->edges = NULL;
-        while (isdigit(input))
-        {
-            scanf(" %c", &input);
-        }
-    }
-    else
-    {
-    }
-}*/
-
-void printGraph_cmd(node *head)
-{
-    if (head == NULL)
-    {
-        puts("head is null");
-    }
-
-    node *current = head;
-    edge *current_edge = NULL;
-    while (current != NULL)
-    {
-        printf("Node no. : %d\n", current->node_num);
-        current_edge = current->edges;
-        while (current_edge != NULL)
-        {
-            printf("%d(%d) ", current_edge->endpoint->node_num, current_edge->weight);
-            current_edge = current_edge->next;
-        }
-        printf("\n");
-        current = current->next;
-    }
-}
-
-node *find_node(node *head, int node_num)
-{
-    node *current = head;
-    while (current != NULL)
-    {
-        if (current->node_num == node_num)
-        {
-            return current;
-        }
-        current = current->next;
-    }
-    return NULL;
-}
-
-edge *find_empty_edge(node *current)
-{
-    edge *e = current->edges;
-    if (e == NULL)
-    {
-        return e;
-    }
-    while (e->next != NULL)
-    {
-        e = e->next;
-    }
-    return e;
 }
 
 void insert_node_cmd(node *head)
@@ -182,7 +58,6 @@ void insert_node_cmd(node *head)
     int node_num;
     printf("Enter the node number: ");
     scanf("%d", &node_num);
-
     node *current = head;
     node *previous = NULL;
     // Search for the node
@@ -200,6 +75,7 @@ void insert_node_cmd(node *head)
                 free(previous_edge);
             }
             current->edges = NULL;
+            add_edges(current, head);
             return;
         }
         previous = current;
@@ -212,6 +88,7 @@ void insert_node_cmd(node *head)
         head->node_num = node_num;
         head->edges = NULL;
         head->next = NULL;
+        add_edges(head, head);
     }
     else
     {
@@ -219,12 +96,6 @@ void insert_node_cmd(node *head)
         previous->next->node_num = node_num;
         previous->next->edges = NULL;
         previous->next->next = NULL;
+        add_edges(previous->next, head);
     }
-}
-
-int parse_to_int(char input)
-{
-    int weight;
-    sscanf(&input, "%d", &weight);
-    return weight;
 }
