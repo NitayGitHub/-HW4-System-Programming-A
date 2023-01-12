@@ -25,7 +25,7 @@ int main()
             break;
 
         case 'C':
-
+            insert_node_cmd(head);
             break;
 
         default:

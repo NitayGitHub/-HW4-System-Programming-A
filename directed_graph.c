@@ -3,9 +3,11 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 
 node *find_node(node *, int);
 edge *find_empty_edge(node *);
+void insert_node_cmd(node *head);
 
 void build_graph_cmd(node *head)
 {
@@ -42,9 +44,7 @@ void build_graph_cmd(node *head)
         scanf(" %c", &input);
         if (input == 'n')
         {
-            puts("!");
             scanf(" %c", &input);
-            printf("%d\n", input - '0');
             current = find_node(head, input - '0');
         }
         else if (isdigit(input))
@@ -66,29 +66,55 @@ void build_graph_cmd(node *head)
             break;
         }
     }
-    printf("-%d", head->node_num);
-    puts("end");
+    puts("end\n");
 }
-
-void printGraph_cmd(node *head)
+/*
+void insert_node_cmd(node *head)
 {
-    puts("enter print");
-    if (head == NULL)
+    int node_num;
+    char input = '1';
+    scanf(" %d", &node_num);
+    if (find_node(head, node_num) == NULL)
     {
-        puts("head is null");
+        node *current = head;
+        while (current != NULL)
+        {
+            current = current->next;
+        }
+        current = (node *)malloc(sizeof(pnode));
+        if (current == NULL)
+        {
+            printf("Error: node malloc failed");
+            return;
+        }
+        current->next = NULL;
+        current->node_num = node_num;
+        current->edges = NULL;
+        while (isdigit(input))
+        {
+            scanf(" %c", &input);
+        }
     }
     else
     {
-        puts("head is not null");
+    }
+}*/
+
+void printGraph_cmd(node *head)
+{
+    if (head == NULL)
+    {
+        puts("head is null");
     }
     node *current = head;
     edge *current_edge = NULL;
     while (current != NULL)
     {
-        puts("enter print");
         printf("Node no. : %d", current->node_num);
-        // printf("Edge     : %d", current->edges);
         current_edge = current->edges;
+        if(current_edge == NULL){
+            perror("No edges");
+        }
         while (current_edge != NULL)
         {
             printf("%d(%d) ", current_edge->endpoint->node_num, current_edge->weight);
@@ -125,4 +151,49 @@ edge *find_empty_edge(node *current)
         e = e->next;
     }
     return e;
+}
+
+void insert_node_cmd(node *head)
+{
+    int node_num;
+    printf("Enter the node number: ");
+    scanf("%d", &node_num);
+
+    node *current = head;
+    node *previous = NULL;
+    // Search for the node
+    while (current != NULL)
+    {
+        if (current->node_num == node_num)
+        {
+            // Delete all edges connected to the node
+            edge *current_edge = current->edges;
+            edge *previous_edge = NULL;
+            while (current_edge != NULL)
+            {
+                previous_edge = current_edge;
+                current_edge = current_edge->next;
+                free(previous_edge);
+            }
+            current->edges = NULL;
+            return;
+        }
+        previous = current;
+        current = current->next;
+    }
+    // If the node doesn't exist, create a new one
+    if (previous == NULL)
+    {
+        head = (node *)malloc(sizeof(node));
+        head->node_num = node_num;
+        head->edges = NULL;
+        head->next = NULL;
+    }
+    else
+    {
+        previous->next = (node *)malloc(sizeof(node));
+        previous->next->node_num = node_num;
+        previous->next->edges = NULL;
+        previous->next->next = NULL;
+    }
 }
