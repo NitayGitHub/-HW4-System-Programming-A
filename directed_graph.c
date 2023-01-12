@@ -99,3 +99,42 @@ void insert_node_cmd(node *head)
         add_edges(previous->next, head);
     }
 }
+
+void delete_node_cmd(node * head){
+    int node_num;
+    printf("Enter the node number: ");
+    scanf("%d", &node_num);
+    node *current = head;
+    node *previous = NULL;
+    // Search for the node
+    while (current != NULL)
+    {
+        if (current->node_num == node_num)
+        {
+            // Delete all edges connected to the node
+            edge *current_edge = current->edges;
+            edge *previous_edge = NULL;
+            while (current_edge != NULL)
+            {
+                previous_edge = current_edge;
+                current_edge = current_edge->next;
+                free(previous_edge);
+            }
+            current->edges = NULL;
+            // Delete the node
+            if (previous == NULL)
+            {
+                head = current->next;
+            }
+            else
+            {
+                previous->next = current->next;
+            }
+            free(current);
+            return;
+        }
+        previous = current;
+        current = current->next;
+    }
+    printf("Node %d is not in the graph\n", node_num);
+}

@@ -11,7 +11,7 @@ int main()
         return 0;
     }
     char input = 'a';
-    while (input != 'D')
+    while (input != 'E')
     {
         scanf(" %c", &input);
         switch (input)
@@ -24,8 +24,8 @@ int main()
             insert_node_cmd(head);
             break;
 
-        case 'C':
-
+        case 'D':
+            delete_node_cmd(head);
             break;
 
         case 'P':
