@@ -3,7 +3,7 @@
 
 int main()
 {
-    pnode *head = NULL;
+    node *head = NULL;
     char input = 'a';
     while (input != 'D')
     {
