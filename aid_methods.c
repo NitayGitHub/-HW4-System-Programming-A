@@ -53,7 +53,7 @@ char add_edges(node *current, node *head)
             if (current == NULL)
             {
                 printf("Error: edge malloc failed");
-                return 'e';
+                return 'E';
             }
             current_edge = current->edges;
             current_edge->endpoint = find_node(head, parse_to_int(input));
@@ -71,7 +71,7 @@ char add_edges(node *current, node *head)
             if (current_edge->next == NULL)
             {
                 printf("Error: edge malloc failed");
-                return 'e';
+                return 'E';
             }
             current_edge->next->endpoint = find_node(head, parse_to_int(input));
             current_edge->next->next = NULL;
@@ -107,4 +107,47 @@ edge *find_empty_edge(node *current)
         e = e->next;
     }
     return e;
+}
+
+void deleteGraph_cmd(node **head)
+{
+    while (*head != NULL)
+    {
+        int node_num = (*head)->node_num;
+        node *current = *head;
+        node *previous = NULL, *next_head = NULL;
+        // Search for the node
+        while (current != NULL)
+        {
+            if (current->node_num == node_num)
+            {
+                // Delete all edges connected to the node
+                edge *current_edge = current->edges;
+                edge *previous_edge = NULL;
+                while (current_edge != NULL)
+                {
+                    previous_edge = current_edge;
+                    current_edge = current_edge->next;
+                    free(previous_edge);
+                }
+                current->edges = NULL;
+                // Delete the node
+                if (previous == NULL)
+                {
+                    next_head = (*head)->next;
+                    free(*head);
+                    *head = next_head;
+                    break;
+                }
+                else
+                {
+                    previous->next = current->next;
+                }
+                free(current);
+                break;
+            }
+            previous = current;
+            current = current->next;
+        }
+    }
 }

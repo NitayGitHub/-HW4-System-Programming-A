@@ -5,7 +5,7 @@
 #include <string.h>
 #include <errno.h>
 
-void build_graph_cmd(node *head)
+char build_graph_cmd(node *head)
 {
     int num_of_nodes = 0;
     char input = 'n';
@@ -27,7 +27,7 @@ void build_graph_cmd(node *head)
             if (current->next == NULL)
             {
                 printf("Error: node malloc failed");
-                return;
+                return 'E';
             }
         }
         current = current->next;
@@ -48,12 +48,13 @@ void build_graph_cmd(node *head)
         }
         else
         {
-            break;
+            return input;
         }
     }
+    return 'E';
 }
 
-void insert_node_cmd(node *head)
+char insert_node_cmd(node *head)
 {
     int node_num;
     printf("Enter the node number: ");
@@ -75,8 +76,7 @@ void insert_node_cmd(node *head)
                 free(previous_edge);
             }
             current->edges = NULL;
-            add_edges(current, head);
-            return;
+            return add_edges(current, head);
         }
         previous = current;
         current = current->next;
@@ -88,7 +88,7 @@ void insert_node_cmd(node *head)
         head->node_num = node_num;
         head->edges = NULL;
         head->next = NULL;
-        add_edges(head, head);
+        return add_edges(head, head);
     }
     else
     {
@@ -96,7 +96,7 @@ void insert_node_cmd(node *head)
         previous->next->node_num = node_num;
         previous->next->edges = NULL;
         previous->next->next = NULL;
-        add_edges(previous->next, head);
+        return add_edges(previous->next, head);
     }
 }
 
