@@ -11,13 +11,11 @@ int main()
 
     while (1)
     {
-        
         if (scan)
         {
-            scanf(" %c", &input);
-            if (input == EOF)
+            if (scanf(" %c", &input) == EOF)
             {
-                deleteGraph_cmd(&head);
+                deleteGraph_cmd(tmp_head);
                 exit(0);
             }
         }
@@ -25,14 +23,13 @@ int main()
         {
             scan = 1;
         }
-        
 
         switch (input)
         {
         case 'A':
             if (head != NULL)
             {
-                deleteGraph_cmd(&head);
+                deleteGraph_cmd(tmp_head);
             }
             head = (node *)malloc(sizeof(pnode));
             if (head == NULL)
@@ -71,8 +68,14 @@ int main()
             printGraph_cmd(head);
             break;
 
+        case '\n':
+            deleteGraph_cmd(tmp_head);
+            return 0;
+
         default:
             break;
         }
     }
+
+    return 0;
 }
