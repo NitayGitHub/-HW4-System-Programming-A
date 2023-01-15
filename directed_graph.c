@@ -207,3 +207,39 @@ int shortsPath_cmd(node *head)
         return shortMat[a][b];
     }
 }
+
+void TSP_cmd(node *head)
+{
+    int k;
+    scanf("%d", &k);
+    int *nums = (int *)malloc(sizeof(int) * k);
+    for (int i = 0; i < k; i++)
+    {
+        scanf("%d", &nums[i]);
+    }
+
+    int min = -1, a;
+    for (int start = 0; start < k; start++)
+    {
+        a = 0;
+        int *n = (int *)malloc(sizeof(int) * (k - 1));
+        for (int i = 0; i < k; i++)
+        {
+            if (i != start)
+            {
+                n[a++] = nums[i];
+            }
+        }
+        int tsp = isAllPath(k - 1, nums[start], n, head);
+        if(tsp != -1 && min == -1)
+        {
+            min = tsp;
+        }
+        else if(tsp != -1 && tsp < min)
+        {
+            min = tsp;
+        }
+        printf("tsp: %d\n", tsp);
+    }
+    printf("%d\n", min);
+}

@@ -32,5 +32,7 @@ node *find_node(node *head, int node_num);
 edge *find_empty_edge(node *current);
 void deleteGraph_cmd(node **head); // free all memory
 int find_path(node *head, int i, int j);
+int shortsPath_aid(node *head, int start, int end);
+int isAllPath(int k, int start, int *nodes, node *head);
 
 #endif

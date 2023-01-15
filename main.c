@@ -51,6 +51,10 @@ int main()
             shortsPath_cmd(head);
             break;
 
+        case 'T':
+            TSP_cmd(head);
+            break;
+
         case 'F':
             deleteGraph_cmd(tmp_head);
             head = (node *)calloc(1, sizeof(pnode));

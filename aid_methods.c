@@ -5,6 +5,8 @@
 #include <string.h>
 #include <errno.h>
 
+#define INFINITY 10
+
 void printGraph_cmd(node *head)
 {
     if (head == NULL)
@@ -170,4 +172,101 @@ int find_path(node *head, int i, int j)
         current_edge = current_edge->next;
     }
     return 0;
+}
+
+int shortsPath_aid(node *head, int start, int end)
+{
+    int isPath, rank = 0;
+    node *current = head;
+    while (current != NULL)
+    {
+        rank++;
+        current = current->next;
+    }
+    int shortMat[rank][rank], i, j;
+    for (i = 0; i < rank; i++)
+    {
+        for (j = 0; j < rank; j++)
+        {
+            isPath = find_path(head, i, j);
+            if (i != j && !isPath)
+            {
+                shortMat[i][j] = INFINITY;
+            }
+            else
+            {
+                shortMat[i][j] = isPath;
+            }
+        }
+    }
+
+    for (i = 0; i < rank; i++)
+    {
+        for (j = 0; j < rank; j++)
+        {
+            for (int k = 0; k < rank; k++)
+            {
+                if (shortMat[j][k] > shortMat[j][i] + shortMat[i][k])
+                {
+                    shortMat[j][k] = shortMat[j][i] + shortMat[i][k];
+                }
+            }
+        }
+    }
+
+    if (shortMat[start][end] == INFINITY)
+    {
+        return -1;
+    }
+    else
+    {
+        return shortMat[start][end];
+    }
+}
+
+int isAllPath(int k, int start, int *nodes, node *head)
+{
+    if (k == 1)
+    {
+        int tmp = shortsPath_aid(head, start, nodes[0]);
+        if (tmp == -1)
+        {
+            return -1;
+        }
+        else
+        {
+            return tmp;
+        }
+    }
+    int a, min = -1;
+    for (int s = 0; s < k; s++)
+    {
+        a = 0;
+        int *n = (int *)malloc(sizeof(int) * (k - 1));
+        for (int i = 0; i < k; i++)
+        {
+            if (i != s)
+            {
+                n[a++] = nodes[i];
+            }
+        }
+        int tmp = isAllPath(k - 1, nodes[s], n, head);
+        if (tmp != -1 && min == -1)
+        {
+            int tmp2 = shortsPath_aid(head, start, nodes[s]);
+            if (tmp2 != -1)
+            {
+                min = tmp + tmp2;
+            }
+        }
+        else if (tmp != -1)
+        {
+            int tmp2 = shortsPath_aid(head, start, nodes[s]);
+            if (tmp2 != -1 && tmp + tmp2 < min)
+            {
+                min = tmp + tmp2;
+            }
+        }
+    }
+    return min;
 }
