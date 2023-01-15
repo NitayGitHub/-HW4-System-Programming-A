@@ -13,7 +13,6 @@ int main()
     {
         if (scan)
         {
-            input = fgetc(stdin);
             if (input == EOF)
             {
                 deleteGraph_cmd(&head);

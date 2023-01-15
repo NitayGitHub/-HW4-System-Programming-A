@@ -130,6 +130,7 @@ void deleteGraph_cmd(node **head)
                 {
                     previous_edge = current_edge;
                     current_edge = current_edge->next;
+                    free(previous_edge->endpoint);
                     free(previous_edge);
                 }
                 current->edges = NULL;
