@@ -240,11 +240,11 @@ int shortestPath_aid(node *head, int start_node, int end_node)
     }
 
     int num_of_nodes = 0;
-    node *sholomo = head;
-    while (sholomo != NULL)
+    node *node_numb = head;
+    while (node_numb != NULL)
     {
         num_of_nodes++;
-        sholomo = sholomo->next;
+        node_numb = node_numb->next;
     }
     int distances[num_of_nodes];
     int visited[num_of_nodes];
