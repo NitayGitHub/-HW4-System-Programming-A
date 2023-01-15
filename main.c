@@ -11,8 +11,10 @@ int main()
 
     while (1)
     {
+        
         if (scan)
         {
+            scanf(" %c", &input);
             if (input == EOF)
             {
                 deleteGraph_cmd(&head);
@@ -23,6 +25,7 @@ int main()
         {
             scan = 1;
         }
+        
 
         switch (input)
         {
