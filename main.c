@@ -15,7 +15,7 @@ int main()
         {
             if (scanf(" %c", &input) == EOF)
             {
-                free(head);
+                deleteGraph_cmd(tmp_head);
                 exit(0);
             }
         }
@@ -67,10 +67,6 @@ int main()
         case 'P':
             printGraph_cmd(head);
             break;
-
-        case '\n':
-            free(head);
-            return 0;
 
         default:
             break;
