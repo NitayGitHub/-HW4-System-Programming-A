@@ -68,5 +68,7 @@ int main()
             break;
         }
     }
+    free(head);
+
     return 0;
 }

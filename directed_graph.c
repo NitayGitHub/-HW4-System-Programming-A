@@ -26,7 +26,7 @@ char build_graph_cmd(node *head)
             current->next = (node *)malloc(sizeof(pnode));
             if (current->next == NULL)
             {
-                printf("Error: node malloc failed");
+                perror("Error: node malloc failed");
                 return 'E';
             }
         }
