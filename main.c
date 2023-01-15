@@ -9,11 +9,14 @@ int main()
     char input = 'a';
     int scan = 1;
 
-    while (input != 'E')
+    while (1)
     {
         if (scan)
         {
-            scanf(" %c", &input);
+            if (scanf(" %c", &input) == EOF)
+            {
+                exit(0);
+            }
         }
         else
         {
@@ -64,11 +67,14 @@ int main()
             printGraph_cmd(head);
             break;
 
+        case '\n':
+            free(head);
+            return 0;
+
         default:
             break;
         }
     }
-    free(head);
 
     return 0;
 }
