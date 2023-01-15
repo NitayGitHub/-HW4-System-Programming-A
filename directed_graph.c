@@ -179,7 +179,7 @@ void TSP_cmd(node *head)
 void shortsPath_cmd(node *head)
 {
     int start_node, end_node;
-    scanf("%d %d", &start_node, &end_node);
+    scanf(" %d %d", &start_node, &end_node);
     int result = shortestPath_aid(head, start_node, end_node);
     printf("Dijsktra shortest path: %d \n", result);
 }

@@ -54,7 +54,7 @@ char add_edges(node *current, node *head)
             current->edges = (edge *)malloc(sizeof(edge));
             if (current == NULL)
             {
-                printf("Error: edge malloc failed");
+                perror("Error: edge malloc failed");
                 return 'E';
             }
             current_edge = current->edges;
@@ -134,15 +134,12 @@ void deleteGraph_cmd(node **head)
                 }
                 current->edges = NULL;
                 // Delete the node
-                if (previous == NULL)
-                {
+                if (previous == NULL) {
                     next_head = (*head)->next;
                     free(*head);
                     *head = next_head;
                     break;
-                }
-                else
-                {
+                } else {
                     previous->next = current->next;
                 }
                 free(current);

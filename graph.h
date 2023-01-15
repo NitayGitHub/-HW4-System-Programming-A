@@ -36,6 +36,5 @@ int isAllPath(int k, int start, int *nodes, node *head);
 int shortestPath_aid(node *head, int start_node, int end_node);
 void deleteGraph2(node *head);
 
-void deleteGraph2(node *head);
 
 #endif

@@ -28,7 +28,7 @@ int main()
         case 'A':
             if (head != NULL)
             {
-                deleteGraph2(tmp_head);
+                deleteGraph2(head);
             }
             head = (node *)malloc(sizeof(pnode));
             if (head == NULL)
@@ -59,7 +59,7 @@ int main()
             break;
 
         case 'F':
-            deleteGraph2(tmp_head);
+            deleteGraph2(head);
             head = (node *)calloc(1, sizeof(pnode));
             break;
 
