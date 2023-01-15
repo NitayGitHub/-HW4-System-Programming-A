@@ -11,7 +11,7 @@ void printGraph_cmd(node *head)
 {
     if (head == NULL)
     {
-        puts("head is null");
+        puts("head is null/n");
     }
 
     node *current = head;
@@ -72,7 +72,7 @@ char add_edges(node *current, node *head)
             current_edge->next = (edge *)malloc(sizeof(edge));
             if (current_edge->next == NULL)
             {
-                printf("Error: edge malloc failed");
+                perror("Error: edge malloc failed");
                 return 'E';
             }
             current_edge->next->endpoint = find_node(head, parse_to_int(input));
