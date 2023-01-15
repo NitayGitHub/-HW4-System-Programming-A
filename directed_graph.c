@@ -59,7 +59,6 @@ char build_graph_cmd(node *head)
 char insert_node_cmd(node *head)
 {
     int node_num;
-    printf("Enter the node number: ");
     scanf("%d", &node_num);
     node *current = head;
     node *previous = NULL;
@@ -105,7 +104,6 @@ char insert_node_cmd(node *head)
 void delete_node_cmd(node **head)
 {
     int node_num;
-    printf("Enter the node number: ");
     scanf("%d", &node_num);
     node *current = *head;
     node *previous = NULL, *next_head = NULL;
@@ -231,11 +229,11 @@ void TSP_cmd(node *head)
             }
         }
         int tsp = isAllPath(k - 1, nums[start], n, head);
-        if(tsp != -1 && min == -1)
+        if (tsp != -1 && min == -1)
         {
             min = tsp;
         }
-        else if(tsp != -1 && tsp < min)
+        else if (tsp != -1 && tsp < min)
         {
             min = tsp;
         }
