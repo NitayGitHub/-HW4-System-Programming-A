@@ -61,16 +61,12 @@ int main()
 
         case 'F':
             deleteGraph_cmd(tmp_head);
-            head = (node *)calloc(1, sizeof(pnode));
+            head = (node *)malloc(sizeof(pnode));
             break;
 
         case 'P':
             printGraph_cmd(head);
             break;
-
-        case '\n':
-            deleteGraph_cmd(tmp_head);
-            return 0;
 
         default:
             break;
