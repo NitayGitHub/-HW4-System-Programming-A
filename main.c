@@ -13,9 +13,10 @@ int main()
     {
         if (scan)
         {
-            if (scanf(" %c", &input) == EOF)
+            input = fgetc(stdin);
+            if (input == EOF)
             {
-                deleteGraph_cmd(tmp_head);
+                deleteGraph_cmd(&head);
                 exit(0);
             }
         }
@@ -29,7 +30,7 @@ int main()
         case 'A':
             if (head != NULL)
             {
-                deleteGraph_cmd(tmp_head);
+                deleteGraph_cmd(&head);
             }
             head = (node *)malloc(sizeof(pnode));
             if (head == NULL)
@@ -61,7 +62,7 @@ int main()
 
         case 'F':
             deleteGraph_cmd(tmp_head);
-            head = (node *)malloc(sizeof(pnode));
+            head = (node *)calloc(1, sizeof(pnode));
             break;
 
         case 'P':
@@ -72,6 +73,4 @@ int main()
             break;
         }
     }
-
-    return 0;
 }
