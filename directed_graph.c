@@ -13,10 +13,8 @@ char build_graph_cmd(node *head)
     char input = 'n';
     scanf(" %d", &num_of_nodes);
 
-    // allocate storage for head node in graph
     node *current = head;
 
-    // allocate storage for all nodes in graph
     for (int i = 0; i < num_of_nodes; i++)
     {
 
@@ -82,7 +80,7 @@ char insert_node_cmd(node *head)
         previous = current;
         current = current->next;
     }
-    // If the node doesn't exist, create a new one
+    // If the node doesn't exist: create a new one
     if (previous == NULL)
     {
         head = (node *)malloc(sizeof(node));
@@ -143,60 +141,6 @@ void delete_node_cmd(node **head)
     printf("Node %d is not in the graph\n", node_num);
 }
 
-int shortsPath_cmd(node *head)
-{
-    int a, b, isPath, rank = 0;
-    node *current = head;
-    while (current != NULL)
-    {
-        rank++;
-        current = current->next;
-    }
-    scanf("%d", &a);
-    scanf("%d", &b);
-    int shortMat[rank][rank], i, j;
-    for (i = 0; i < rank; i++)
-    {
-        for (j = 0; j < rank; j++)
-        {
-            isPath = find_path(head, i, j);
-            if (i != j && !isPath)
-            {
-                shortMat[i][j] = INFINITY;
-            }
-            else
-            {
-                shortMat[i][j] = isPath;
-            }
-        }
-    }
-
-    for (i = 0; i < rank; i++)
-    {
-        for (j = 0; j < rank; j++)
-        {
-            for (int k = 0; k < rank; k++)
-            {
-                if (shortMat[j][k] > shortMat[j][i] + shortMat[i][k])
-                {
-                    shortMat[j][k] = shortMat[j][i] + shortMat[i][k];
-                }
-            }
-        }
-    }
-
-    if (shortMat[a][b] == INFINITY)
-    {
-        printf("Dijsktra shortest path: -1 \n");
-        return -1;
-    }
-    else
-    {
-        printf("Dijsktra shortest path: %d \n", shortMat[a][b]);
-        return shortMat[a][b];
-    }
-}
-
 void TSP_cmd(node *head)
 {
     int k;
@@ -230,4 +174,12 @@ void TSP_cmd(node *head)
         }
     }
     printf("TSP shortest path: %d \n", min);
+}
+
+void shortsPath_cmd(node *head)
+{
+    int start_node, end_node;
+    scanf("%d %d", &start_node, &end_node);
+    int result = shortestPath_aid(head, start_node, end_node);
+    printf("Dijsktra shortest path: %d \n", result);
 }

@@ -157,6 +157,7 @@ void deleteGraph_cmd(node **head)
 int find_path(node *head, int i, int j)
 {
     node *tmp = find_node(head, i);
+    printf("%d", tmp->node_num);
     edge *current_edge = tmp->edges;
     if (current_edge == NULL)
     {
@@ -174,61 +175,11 @@ int find_path(node *head, int i, int j)
     return 0;
 }
 
-int shortsPath_aid(node *head, int start, int end)
-{
-    int isPath, rank = 0;
-    node *current = head;
-    while (current != NULL)
-    {
-        rank++;
-        current = current->next;
-    }
-    int shortMat[rank][rank], i, j;
-    for (i = 0; i < rank; i++)
-    {
-        for (j = 0; j < rank; j++)
-        {
-            isPath = find_path(head, i, j);
-            if (i != j && !isPath)
-            {
-                shortMat[i][j] = INFINITY;
-            }
-            else
-            {
-                shortMat[i][j] = isPath;
-            }
-        }
-    }
-
-    for (i = 0; i < rank; i++)
-    {
-        for (j = 0; j < rank; j++)
-        {
-            for (int k = 0; k < rank; k++)
-            {
-                if (shortMat[j][k] > shortMat[j][i] + shortMat[i][k])
-                {
-                    shortMat[j][k] = shortMat[j][i] + shortMat[i][k];
-                }
-            }
-        }
-    }
-
-    if (shortMat[start][end] == INFINITY)
-    {
-        return -1;
-    }
-    else
-    {
-        return shortMat[start][end];
-    }
-}
-
 int isAllPath(int k, int start, int *nodes, node *head)
 {
     if (k == 1)
     {
-        int tmp = shortsPath_aid(head, start, nodes[0]);
+        int tmp = shortestPath_aid(head, start, nodes[0]);
         if (tmp == -1)
         {
             return -1;
@@ -253,7 +204,7 @@ int isAllPath(int k, int start, int *nodes, node *head)
         int tmp = isAllPath(k - 1, nodes[s], n, head);
         if (tmp != -1 && min == -1)
         {
-            int tmp2 = shortsPath_aid(head, start, nodes[s]);
+            int tmp2 = shortestPath_aid(head, start, nodes[s]);
             if (tmp2 != -1)
             {
                 min = tmp + tmp2;
@@ -261,7 +212,7 @@ int isAllPath(int k, int start, int *nodes, node *head)
         }
         else if (tmp != -1)
         {
-            int tmp2 = shortsPath_aid(head, start, nodes[s]);
+            int tmp2 = shortestPath_aid(head, start, nodes[s]);
             if (tmp2 != -1 && tmp + tmp2 < min)
             {
                 min = tmp + tmp2;
@@ -269,4 +220,71 @@ int isAllPath(int k, int start, int *nodes, node *head)
         }
     }
     return min;
+}
+
+int shortestPath_aid(node *head, int start_node, int end_node)
+{
+
+    node *start = find_node(head, start_node);
+    if (start == NULL)
+    {
+        perror("Error: start node not found\n");
+        exit(1);
+    }
+
+    node *end = find_node(head, end_node);
+    if (end == NULL)
+    {
+        perror("Error: end node not found\n");
+        exit(1);
+    }
+
+    int num_of_nodes = 0;
+    node *sholomo = head;
+    while (sholomo != NULL)
+    {
+        num_of_nodes++;
+        sholomo = sholomo->next;
+    }
+    int distances[num_of_nodes];
+    int visited[num_of_nodes];
+    for (int i = 0; i < num_of_nodes; i++)
+    {
+        distances[i] = INFINITY;
+        visited[i] = 0;
+    }
+    distances[start->node_num] = 0;
+
+    node *current = start;
+    while (current != end)
+    {
+        visited[current->node_num] = 1;
+
+        edge *current_edge = current->edges;
+        if (current_edge == NULL)
+        {
+            return -1;
+        }
+        while (current_edge != NULL)
+        {
+            int new_distance = distances[current->node_num] + current_edge->weight;
+            if (new_distance < distances[current_edge->endpoint->node_num])
+            {
+                distances[current_edge->endpoint->node_num] = new_distance;
+            }
+            current_edge = current_edge->next;
+        }
+        int min_distance = INFINITY;
+        int min_node = -1;
+        for (int i = 0; i < num_of_nodes; i++)
+        {
+            if (!visited[i] && distances[i] < min_distance)
+            {
+                min_distance = distances[i];
+                min_node = i;
+            }
+        }
+        current = find_node(head, min_node);
+    }
+    return distances[end_node];
 }

@@ -1,0 +1,44 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "main - Debug",
+            "program": "${workspaceFolder}/graph",
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "watchdog - Debug",
+            "program": "${workspaceFolder}/watchdog",
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "betterPing - Debug",
+            "program": "${workspaceFolder}/better_ping",
+            "args": [
+                "8.8.8.8"
+            ],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "parta - Debug",
+            "program": "${workspaceFolder}/a.out",
+            "args": [
+                "8.8.8.8"
+            ],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
