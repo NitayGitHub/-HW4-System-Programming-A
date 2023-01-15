@@ -198,12 +198,12 @@ int shortsPath_cmd(node *head)
 
     if (shortMat[a][b] == INFINITY)
     {
-        puts("-1");
+        printf("Dijsktra shortest path: -1 \n");
         return -1;
     }
     else
     {
-        printf("%d\n", shortMat[a][b]);
+        printf("Dijsktra shortest path: %d \n", shortMat[a][b]);
         return shortMat[a][b];
     }
 }
@@ -240,5 +240,5 @@ void TSP_cmd(node *head)
             min = tsp;
         }
     }
-    printf("%d\n", min);
+    printf("TSP shortest path: %d \n", min);
 }
