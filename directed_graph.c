@@ -239,7 +239,6 @@ void TSP_cmd(node *head)
         {
             min = tsp;
         }
-        printf("tsp: %d\n", tsp);
     }
     printf("%d\n", min);
 }
