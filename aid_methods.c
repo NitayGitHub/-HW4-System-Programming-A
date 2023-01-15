@@ -151,3 +151,23 @@ void deleteGraph_cmd(node **head)
         }
     }
 }
+
+int find_path(node *head, int i, int j)
+{
+    node *tmp = find_node(head, i);
+    edge *current_edge = tmp->edges;
+    if (current_edge == NULL)
+    {
+        return 0;
+    }
+
+    while (current_edge != NULL)
+    {
+        if (current_edge->endpoint->node_num == j)
+        {
+            return current_edge->weight;
+        }
+        current_edge = current_edge->next;
+    }
+    return 0;
+}

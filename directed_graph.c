@@ -5,6 +5,8 @@
 #include <string.h>
 #include <errno.h>
 
+#define INFINITY 10
+
 char build_graph_cmd(node *head)
 {
     int num_of_nodes = 0;
@@ -100,12 +102,13 @@ char insert_node_cmd(node *head)
     }
 }
 
-void delete_node_cmd(node **head){
+void delete_node_cmd(node **head)
+{
     int node_num;
     printf("Enter the node number: ");
     scanf("%d", &node_num);
     node *current = *head;
-    node *previous = NULL, * next_head = NULL;
+    node *previous = NULL, *next_head = NULL;
     // Search for the node
     while (current != NULL)
     {
@@ -140,4 +143,67 @@ void delete_node_cmd(node **head){
         current = current->next;
     }
     printf("Node %d is not in the graph\n", node_num);
+}
+
+int shortsPath_cmd(node *head)
+{
+    int a, b, isPath, rank = 0;
+    node *current = head;
+    while (current != NULL)
+    {
+        rank++;
+        current = current->next;
+    }
+    scanf("%d", &a);
+    scanf("%d", &b);
+    int shortMat[rank][rank], i, j;
+    for (i = 0; i < rank; i++)
+    {
+        for (j = 0; j < rank; j++)
+        {
+            isPath = find_path(head, i, j);
+            if (i != j && !isPath)
+            {
+                shortMat[i][j] = INFINITY;
+            }
+            else
+            {
+                shortMat[i][j] = isPath;
+            }
+        }
+    }
+
+    for (i = 0; i < rank; i++)
+    {
+        for (j = 0; j < rank; j++)
+        {
+            for (int k = 0; k < rank; k++)
+            {
+                if (shortMat[j][k] > shortMat[j][i] + shortMat[i][k])
+                {
+                    shortMat[j][k] = shortMat[j][i] + shortMat[i][k];
+                }
+            }
+        }
+    }
+
+    for (int i = 0; i < rank; i++)
+    {
+        for (int j = 0; j < rank; j++)
+        {
+            printf("%d ", shortMat[i][j]);
+        }
+        printf("\n");
+    }
+
+    if (shortMat[a][b] == INFINITY)
+    {
+        puts("-1");
+        return -1;
+    }
+    else
+    {
+        printf("%d\n", shortMat[a][b]);
+        return shortMat[a][b];
+    }
 }
