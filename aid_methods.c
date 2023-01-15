@@ -288,3 +288,21 @@ int shortestPath_aid(node *head, int start_node, int end_node)
     }
     return distances[end_node];
 }
+
+void deleteGraph2(node *head)
+{
+    if (head == NULL)
+    {
+        return;
+    }
+    node *current = head;
+    node *temp;
+
+    while (current != NULL)
+    {
+        temp = current;
+        current = current->next;
+        free(temp->edges);
+        free(temp);
+    }
+}
