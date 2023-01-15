@@ -185,15 +185,6 @@ int shortsPath_cmd(node *head)
         }
     }
 
-    for (int i = 0; i < rank; i++)
-    {
-        for (int j = 0; j < rank; j++)
-        {
-            printf("%d ", shortMat[i][j]);
-        }
-        printf("\n");
-    }
-
     if (shortMat[a][b] == INFINITY)
     {
         printf("Dijsktra shortest path: -1 \n");
