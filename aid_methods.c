@@ -294,12 +294,20 @@ void deleteGraph2(node *head)
     }
     node *current = head;
     node *temp;
+    edge *temp_curr_edge;
+    edge *temp_pre_edge;
 
     while (current != NULL)
     {
         temp = current;
         current = current->next;
-        free(temp->edges);
+        temp_curr_edge = temp->edges;
+        while (temp_curr_edge != NULL)
+        {
+            temp_pre_edge = temp_curr_edge;
+            temp_curr_edge = temp_curr_edge->next;
+            free(temp_pre_edge);
+        }
         free(temp);
     }
 }
