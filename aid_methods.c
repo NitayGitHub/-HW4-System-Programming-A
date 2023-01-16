@@ -30,10 +30,14 @@ void printGraph_cmd(node *head)
     }
 }
 
-int parse_to_int(char input) {
-    if (input >= '0' && input <= '9') {
+int parse_to_int(char input)
+{
+    if (input >= '0' && input <= '9')
+    {
         return input - '0';
-    } else {
+    }
+    else
+    {
         perror("input is not a numerical character");
         return -1;
     }
@@ -98,8 +102,6 @@ node *find_node(node *head, int node_num)
     }
     return NULL;
 }
-
-
 
 int isAllPath(int k, int start, int *nodes, node *head)
 {
@@ -173,6 +175,7 @@ int shortestPath_aid(node *head, int start_node, int end_node)
         num_of_nodes++;
         node_numb = node_numb->next;
     }
+
     int distances[num_of_nodes];
     int visited[num_of_nodes];
     for (int i = 0; i < num_of_nodes; i++)
