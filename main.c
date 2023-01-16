@@ -15,7 +15,7 @@ int main()
         {
             if (scanf(" %c", &input) == EOF)
             {
-                deleteGraph2(head);
+                deleteGraph_cmd(head);
                 head = NULL;
                 exit(0);
             }
@@ -30,7 +30,7 @@ int main()
         case 'A':
             if (head != NULL)
             {
-                deleteGraph2(head);
+                deleteGraph_cmd(head);
                 head = NULL;
             }
             head = (node *)malloc(sizeof(node));
@@ -62,7 +62,7 @@ int main()
             break;
 
         case 'F':
-            deleteGraph2(head);
+            deleteGraph_cmd(head);
             head = NULL;
             break;
 

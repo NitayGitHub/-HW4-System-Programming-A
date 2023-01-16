@@ -29,12 +29,9 @@ void printGraph_cmd(node *head);
 int parse_to_int(char input);
 char add_edges(node *current, node *head);
 node *find_node(node *head, int node_num);
-edge *find_empty_edge(node *current);
-void deleteGraph_cmd(node **head); // free all memory
-int find_path(node *head, int i, int j);
+void deleteGraph_cmd(node *head);
 int isAllPath(int k, int start, int *nodes, node *head);
 int shortestPath_aid(node *head, int start_node, int end_node);
-void deleteGraph2(node *head);
 
 
 #endif
