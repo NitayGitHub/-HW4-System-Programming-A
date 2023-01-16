@@ -31,8 +31,9 @@ int main()
             if (head != NULL)
             {
                 deleteGraph2(head);
+                head = NULL;
             }
-            head = (node *)malloc(sizeof(pnode));
+            head = (node *)malloc(sizeof(node));
             if (head == NULL)
             {
                 printf("Error: head malloc failed");
@@ -62,7 +63,7 @@ int main()
 
         case 'F':
             deleteGraph2(head);
-            head = (node *)calloc(1, sizeof(pnode));
+            head = NULL;
             break;
 
         case 'P':

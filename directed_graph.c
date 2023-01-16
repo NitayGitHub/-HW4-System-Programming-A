@@ -23,7 +23,7 @@ char build_graph_cmd(node *head)
         current->edges = NULL;
         if (i != num_of_nodes - 1)
         {
-            current->next = (node *)malloc(sizeof(pnode));
+            current->next = (node *)malloc(sizeof(node));
             if (current->next == NULL)
             {
                 perror("Error: node malloc failed");
@@ -164,6 +164,7 @@ void TSP_cmd(node *head)
             }
         }
         int tsp = isAllPath(k - 1, nums[start], n, head);
+        free(n);
         if (tsp != -1 && min == -1)
         {
             min = tsp;
@@ -173,6 +174,7 @@ void TSP_cmd(node *head)
             min = tsp;
         }
     }
+    free(nums);
     printf("TSP shortest path: %d \n", min);
 }
 
