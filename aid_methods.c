@@ -173,6 +173,15 @@ int shortestPath_aid(node *head, int start_node, int end_node)
         num_of_nodes++;
         node_numb = node_numb->next;
     }
+    int names[num_of_nodes];
+    node_numb = head;
+    for (int i = 0; i < num_of_nodes; i++)
+    {
+        names[i] = node_numb->node_num;
+        node_numb->node_num = i;
+        node_numb = node_numb->next;
+    }
+
     int distances[num_of_nodes];
     int visited[num_of_nodes];
     for (int i = 0; i < num_of_nodes; i++)
@@ -212,6 +221,12 @@ int shortestPath_aid(node *head, int start_node, int end_node)
             }
         }
         current = find_node(head, min_node);
+    }
+    node_numb = head;
+    for (int i = 0; i < num_of_nodes; i++)
+    {
+        node_numb->node_num = names[i];
+        node_numb = node_numb->next;
     }
     return distances[end_node];
 }
