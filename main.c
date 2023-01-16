@@ -15,6 +15,8 @@ int main()
         {
             if (scanf(" %c", &input) == EOF)
             {
+                deleteGraph2(head);
+                head = NULL;
                 exit(0);
             }
         }

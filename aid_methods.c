@@ -307,7 +307,9 @@ void deleteGraph2(node *head)
             temp_pre_edge = temp_curr_edge;
             temp_curr_edge = temp_curr_edge->next;
             free(temp_pre_edge);
+            temp_pre_edge = NULL;
         }
         free(temp);
+        temp = NULL;
     }
 }
