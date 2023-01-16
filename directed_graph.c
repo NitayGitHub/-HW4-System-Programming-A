@@ -143,7 +143,7 @@ void delete_node_cmd(node **head)
 
 void TSP_cmd(node *head)
 {
-    int k;
+    int k=0;
     scanf("%d", &k);
     int *nums = (int *)malloc(sizeof(int) * k);
     for (int i = 0; i < k; i++)

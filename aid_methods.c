@@ -4,8 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
-
-#define INFINITY 10
+#include <limits.h>
+#define INFINITY INT_MAX
 
 void printGraph_cmd(node *head)
 {
@@ -115,11 +115,16 @@ int isAllPath(int k, int start, int *nodes, node *head)
             return tmp;
         }
     }
-    int a, min = -1;
+    int a, min = INT_MAX;
     for (int s = 0; s < k; s++)
     {
         a = 0;
-        int *n = (int *)malloc(sizeof(int) * (k - 1));
+        int *n = (int *)calloc(k-1 , sizeof(int));
+        if(n==NULL)
+        {
+            perror("calloc failed");
+            exit(-1);
+        }
         for (int i = 0; i < k; i++)
         {
             if (i != s)
@@ -129,15 +134,7 @@ int isAllPath(int k, int start, int *nodes, node *head)
         }
         int tmp = isAllPath(k - 1, nodes[s], n, head);
         free(n);
-        if (tmp != -1 && min == -1)
-        {
-            int tmp2 = shortestPath_aid(head, start, nodes[s]);
-            if (tmp2 != -1)
-            {
-                min = tmp + tmp2;
-            }
-        }
-        else if (tmp != -1)
+        if (tmp != -1)
         {
             int tmp2 = shortestPath_aid(head, start, nodes[s]);
             if (tmp2 != -1 && tmp + tmp2 < min)
@@ -146,8 +143,11 @@ int isAllPath(int k, int start, int *nodes, node *head)
             }
         }
     }
+    if(min == INT_MAX)
+        return -1;
     return min;
 }
+
 
 int shortestPath_aid(node *head, int start_node, int end_node)
 {
@@ -175,19 +175,20 @@ int shortestPath_aid(node *head, int start_node, int end_node)
     }
     int distances[num_of_nodes];
     int visited[num_of_nodes];
+    distances[start->node_num] = 0;
     for (int i = 0; i < num_of_nodes; i++)
     {
+        distances[start->node_num] = 0;
         distances[i] = INFINITY;
         visited[i] = 0;
     }
-    distances[start->node_num] = 0;
 
     node *current = start;
     while (current != end)
     {
         visited[current->node_num] = 1;
-
-        edge *current_edge = current->edges;
+        edge *current_edge = NULL;
+        current_edge = current->edges;
         if (current_edge == NULL)
         {
             return -1;
@@ -203,6 +204,7 @@ int shortestPath_aid(node *head, int start_node, int end_node)
         }
         int min_distance = INFINITY;
         int min_node = -1;
+
         for (int i = 0; i < num_of_nodes; i++)
         {
             if (!visited[i] && distances[i] < min_distance)
