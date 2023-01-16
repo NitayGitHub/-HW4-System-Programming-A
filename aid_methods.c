@@ -199,10 +199,6 @@ int isAllPath(int k, int start, int *nodes, node *head)
             }
         }
         int tmp = isAllPath(k - 1, nodes[s], n, head);
-        for(int i = 0; i < k - 1; i++)
-        {
-            free(n + i);
-        }
         if (tmp != -1 && min == -1)
         {
             int tmp2 = shortestPath_aid(head, start, nodes[s]);

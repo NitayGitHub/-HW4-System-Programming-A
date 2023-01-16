@@ -164,10 +164,6 @@ void TSP_cmd(node *head)
             }
         }
         int tsp = isAllPath(k - 1, nums[start], n, head);
-        for(int j = 0; j < k - 1; j++)
-        {
-            free(n + j);
-        }
         if (tsp != -1 && min == -1)
         {
             min = tsp;
@@ -176,10 +172,6 @@ void TSP_cmd(node *head)
         {
             min = tsp;
         }
-    }
-    for(int i = 0; i < k; i++)
-    {
-        free(nums + i);
     }
     printf("TSP shortest path: %d \n", min);
 }
